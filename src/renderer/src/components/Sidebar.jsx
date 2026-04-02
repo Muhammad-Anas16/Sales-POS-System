@@ -10,14 +10,15 @@ import {
   PanelLeftClose,
   PanelLeftOpen
 } from 'lucide-react'
+import { Link } from 'react-router'
 
 const menuItems = [
-  { id: 1, label: 'Home', icon: Home },
-  { id: 2, label: 'Sales', icon: ShoppingCart },
-  { id: 3, label: 'Orders', icon: ReceiptText },
-  { id: 4, label: 'Products', icon: Package },
-  { id: 5, label: 'Reports', icon: BarChart3 },
-  { id: 6, label: 'Settings', icon: Settings }
+  { id: 1, label: 'Home', icon: Home, path: '/' },
+  { id: 2, label: 'Sales', icon: ShoppingCart, path: '/sales' },
+  { id: 3, label: 'Orders', icon: ReceiptText, path: '/orders' },
+  { id: 4, label: 'Products', icon: Package, path: '/products' },
+  { id: 5, label: 'Reports', icon: BarChart3, path: '/report' },
+  { id: 6, label: 'Settings', icon: Settings, path: '/setting' }
 ]
 
 const Sidebar = () => {
@@ -38,7 +39,10 @@ const Sidebar = () => {
           </div>
         )}
 
-        <button onClick={() => setCollapsed(!collapsed)}>
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="p-2 rounded-md hover:bg-gray-200 transition-colors flex items-center justify-center"
+        >
           {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
         </button>
       </div>
@@ -50,7 +54,9 @@ const Sidebar = () => {
           const isActive = active === item.id
 
           return (
-            <button
+            <Link
+              title={item.label}
+              to={item.path}
               key={item.id}
               onClick={() => setActive(item.id)}
               className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all
@@ -62,7 +68,7 @@ const Sidebar = () => {
 
               {/* Hide text when collapsed */}
               {!collapsed && <span className="text-sm">{item.label}</span>}
-            </button>
+            </Link>
           )
         })}
       </nav>

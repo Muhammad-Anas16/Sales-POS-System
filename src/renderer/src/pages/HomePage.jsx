@@ -1,10 +1,9 @@
-import CartsComponent from '../components/CartsComponent'
-import Headers from '../components/Header'
-// import HomePageFooter from '../components/ui/HomePageFooter'
+import CartsComponent from '../components/Home/CartsComponent'
+import HomePageHeader from '../components/Home/HomePageHeader'
 const HomePage = () => {
   return (
     <div className="bg-[#F4E7DF] font-body overflow-x-hidden">
-      <Headers />
+      <HomePageHeader />
       <main className="px-8 py-10 bg-[#F4E7DF] h-full w-full flex flex-col items-center justify-start gap-8">
         <CartsComponent />
         {/* <HomePageFooter /> */}
@@ -14,4 +13,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-

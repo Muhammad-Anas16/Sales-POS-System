@@ -1,6 +1,6 @@
 import { Wifi, WifiOff, Clock } from 'lucide-react'
 
-function Versions() {
+function HomePageHeader() {
   const isOnline = true
 
   return (
@@ -27,4 +27,4 @@ function Versions() {
   )
 }
 
-export default Versions
+export default HomePageHeader

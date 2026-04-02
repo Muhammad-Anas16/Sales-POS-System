@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import Cart from './ui/Cart'
-import SalesCard from './ui/SalesCard'
+import Cart from '../ui/Cart'
+import SalesCard from '../ui/SalesCard'
 import { ReceiptText, Package, BarChart3, Settings } from 'lucide-react'
 
 const CartsComponent = () => {
