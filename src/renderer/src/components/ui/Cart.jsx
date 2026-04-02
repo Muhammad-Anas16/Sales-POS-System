@@ -1,3 +1,6 @@
+import { ChevronRight } from 'lucide-react'
+import { Link } from 'react-router'
+
 const Cart = ({
   icon: Icon,
   iconColor,
@@ -8,10 +11,12 @@ const Cart = ({
   subTitleColor,
   bottomColor,
   bottomDotColor,
-  bottomTitle
+  bottomTitle,
+  URL
 }) => {
   return (
-    <button
+    <Link
+      to={URL}
       className="overflow-hidden backdrop-blur-md p-8 rounded-3xl shadow-[0_12px_40px_rgba(57,102,98,0.05)] text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer"
       style={{ backgroundColor: Background }}
     >
@@ -34,8 +39,7 @@ const Cart = ({
           </p>
         </div>
 
-        {/* Bottom (only if exists) */}
-        {bottomTitle && (
+        {bottomTitle ? (
           <div className="mt-8">
             <div
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold"
@@ -56,9 +60,13 @@ const Cart = ({
               {bottomTitle}
             </div>
           </div>
+        ) : (
+          <div className="mt-8 flex justify-end">
+            <ChevronRight size={34} color={iconColor} />
+          </div>
         )}
       </div>
-    </button>
+    </Link>
   )
 }
 

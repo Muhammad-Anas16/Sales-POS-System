@@ -4,7 +4,7 @@ function Versions() {
   const isOnline = true
 
   return (
-    <header className="fixed bg-[#FFFFFF] flex justify-between items-center px-8 h-16 w-full border-b border-outline-variant/30 z-10">
+    <header className="bg-[#FFFFFF] flex justify-between items-center px-8 h-16 w-full border-b border-outline-variant/30 z-10">
       <div className="flex items-center gap-4">
         <span className="text-[#396662] font-bold italic text-lg tracking-tight">
           The Tactile Atelier

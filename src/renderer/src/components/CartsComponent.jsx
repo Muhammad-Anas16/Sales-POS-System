@@ -16,7 +16,8 @@ const CartsComponent = () => {
       subTitle: 'Manage queue',
       bottomColor: '#396662',
       bottomDotColor: '#A8D7D2',
-      bottomTitle: '12 ACTIVE'
+      bottomTitle: '12 ACTIVE',
+      URL: '/orders'
     },
     {
       id: 2,
@@ -29,7 +30,8 @@ const CartsComponent = () => {
       subTitle: 'Inventory & Menu',
       bottomColor: '#396662',
       bottomDotColor: '#A8D7D2',
-      bottomTitle: '12 Item Low Stock'
+      bottomTitle: '12 Item Low Stock',
+      URL: '/products'
     },
     {
       id: 3,
@@ -42,7 +44,8 @@ const CartsComponent = () => {
       subTitle: 'Insights & Analytics',
       bottomColor: null,
       bottomDotColor: null,
-      bottomTitle: null
+      bottomTitle: null,
+      URL: '/report'
     },
     {
       id: 4,
@@ -50,12 +53,13 @@ const CartsComponent = () => {
       iconColor: '#325f5b',
       iconBackground: '#A8D7D2',
       Background: '#FEFBF9',
-      title: 'Orders',
+      title: 'Settings',
       subTitleColor: '#4e4541',
       subTitle: 'Manage queue',
       bottomColor: '#396662',
       bottomDotColor: '#A8D7D2',
-      bottomTitle: '12 ACTIVE'
+      bottomTitle: '12 ACTIVE',
+      URL: '/setting'
     }
   ])
 
@@ -78,6 +82,7 @@ const CartsComponent = () => {
           bottomColor={item.bottomColor}
           bottomDotColor={item.bottomDotColor}
           bottomTitle={item.bottomTitle}
+          URL={item.URL}
         />
       ))}
     </div>
