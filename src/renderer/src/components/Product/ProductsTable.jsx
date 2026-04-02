@@ -5,7 +5,7 @@ const ProductsTable = () => {
     {
       id: 1,
       name: 'Ethiopian Yirgacheffe',
-      exp: 'BEAN-001-YIRG',
+      expDate: '21/12/2027',
       category: 'Coffee Beans',
       stock: 42,
       price: 28.5
@@ -43,7 +43,7 @@ const ProductsTable = () => {
               <tr key={product.id}>
                 <td className="px-6 py-5 cursor-pointer">
                   <p className="font-semibold text-[#1b1c1a]">{product.name}</p>
-                  <p className="text-xs text-[#4e4541]">EXP: {product.exp}</p>
+                  <p className="text-xs text-[#4e4541]">EXP: {product.expDate}</p>
                 </td>
 
                 <td className="px-6 py-5">

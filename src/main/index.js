@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import db from './SQLite'
 
 function createWindow() {
   // Create the browser window.
@@ -51,6 +52,20 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // 📦 Get all products from SQLite DataBase
+  ipcMain.handle('get-products', () => {
+    return db.prepare('SELECT * FROM products').all()
+  })
+
+  // ➕ Add product
+  ipcMain.handle('add-product', (_, product) => {
+    return db
+      .prepare(
+        `INSERT INTO products (name, expDate, category, stock, price) VALUES (?, ?, ?, ?, ?)`
+      )
+      .run(product.name, product.expDate, product.category, product.stock, product.price)
+  })
 
   createWindow()
 

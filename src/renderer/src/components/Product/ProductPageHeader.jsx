@@ -1,6 +1,19 @@
 import { PlusCircle } from 'lucide-react'
+import { useState } from 'react'
+import AddProductModal from './AddProductModal'
 
 const ProductPageHeader = () => {
+  const [products, setProducts] = useState([])
+  const [open, setOpen] = useState(false)
+
+  function handleAdd(product) {
+    setProducts(function (prev) {
+      return [...prev, product]
+    })
+  }
+
+  console.log('Products: ', products)
+
   return (
     <header className="flex justify-between gap-6 mb-10">
       <div>
@@ -12,7 +25,7 @@ const ProductPageHeader = () => {
       </div>
 
       <button
-        // onClick={onAdd}
+        onClick={() => setOpen(true)}
         className="
           inline-flex items-center justify-center gap-2
           bg-gradient-to-br from-[#396662] to-[#a8d7d2]
@@ -30,6 +43,7 @@ const ProductPageHeader = () => {
         <PlusCircle size={20} />
         Add Product
       </button>
+      <AddProductModal isOpen={open} onClose={() => setOpen(false)} onAdd={handleAdd} />
     </header>
   )
 }
