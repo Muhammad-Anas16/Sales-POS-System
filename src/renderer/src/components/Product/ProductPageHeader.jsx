@@ -1,18 +1,29 @@
 import { PlusCircle } from 'lucide-react'
 import { useState } from 'react'
 import AddProductModal from './AddProductModal'
+import { addProducts, getProducts } from '../../services/productService'
 
 const ProductPageHeader = () => {
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState([])
   const [open, setOpen] = useState(false)
 
-  function handleAdd(product) {
-    setProducts(function (prev) {
-      return [...prev, product]
-    })
+  const handleAdd = async (product) => {
+    await addProducts(product)
+    console.log('Adding product: ', product)
+
+    // const data = await getProducts()
+
+    // console.log('Fetched products: ', data)
   }
 
-  console.log('Products: ', products)
+  const handleFetch = async () => {
+    const data = await getProducts()
+    console.log('Fetched products: ', data)
+  }
+
+  handleFetch()
+
+  // console.log('Products: ', products)
 
   return (
     <header className="flex justify-between gap-6 mb-10">
@@ -37,7 +48,7 @@ const ProductPageHeader = () => {
           transition-all duration-300
           hover:scale-[1.03] hover:shadow-xl
           active:scale-[0.98]
-          focus:outline-none focus:ring-2 focus:ring-[#396662]/40
+          focus:outline-none focus:ring-2 focus:ring-[#396662]/40 cursor-pointer
         "
       >
         <PlusCircle size={20} />

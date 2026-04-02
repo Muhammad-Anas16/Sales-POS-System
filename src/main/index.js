@@ -53,12 +53,45 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
-  // 📦 Get all products from SQLite DataBase
+  // Delete products using SQLite DataBase
+
+  ipcMain.handle('delete-product', (_, id) => {
+    return db
+      .prepare(
+        `
+    DELETE FROM products WHERE id = ?
+  `
+      )
+      .run(id)
+  })
+
+  // Update products using SQLite DataBase
+
+  ipcMain.handle('update-product', (_, product) => {
+    return db
+      .prepare(
+        `
+    UPDATE products
+    SET name = ?, expDate = ?, category = ?, stock = ?, price = ?
+    WHERE id = ?
+  `
+      )
+      .run(
+        product.name,
+        product.expDate,
+        product.category,
+        product.stock,
+        product.price,
+        product.id
+      )
+  })
+
+  // 📦 Get all products using SQLite DataBase
   ipcMain.handle('get-products', () => {
     return db.prepare('SELECT * FROM products').all()
   })
 
-  // ➕ Add product
+  // ➕ Add  products using SQLite DataBase
   ipcMain.handle('add-product', (_, product) => {
     return db
       .prepare(

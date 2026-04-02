@@ -3,10 +3,16 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
-  // 📦 Get products
+  // Update Products
+  updateProduct: (product) => ipcRenderer.invoke('update-product', product),
+
+  // Delete Products
+  deleteProduct: (id) => ipcRenderer.invoke('delete-product', id),
+
+  // 📦 Get Products
   getProducts: () => ipcRenderer.invoke('get-products'),
 
-  // ➕ Add product
+  // ➕ Add Products
   addProduct: (product) => ipcRenderer.invoke('add-product', product)
 }
 

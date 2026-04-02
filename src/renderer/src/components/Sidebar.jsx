@@ -28,7 +28,7 @@ const Sidebar = () => {
   return (
     <aside
       className={`h-screen bg-[#F5F1ED] border-r flex flex-col transition-all duration-300
-        ${collapsed ? 'w-20' : 'w-64'}`}
+        ${collapsed ? 'w-20' : 'w-48'}`}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4">

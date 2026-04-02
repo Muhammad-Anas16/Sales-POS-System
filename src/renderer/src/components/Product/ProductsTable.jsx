@@ -1,4 +1,5 @@
 import { Pencil, Trash2 } from 'lucide-react'
+import { deleteProduct } from '../../services/productService'
 
 const ProductsTable = () => {
   const products = [
@@ -11,6 +12,11 @@ const ProductsTable = () => {
       price: 28.5
     }
   ]
+
+  const handleDelete = async (id) => {
+    await deleteProduct(id)
+    // loadProducts() // refresh
+  }
 
   return (
     <div className="bg-white mx-6 mb-6 rounded-xl overflow-hidden">
@@ -62,6 +68,7 @@ const ProductsTable = () => {
 
                 <td className="px-6 py-5 text-right">
                   <button
+                    onClick={handleDelete}
                     aria-label="Edit product"
                     className="p-2 text-[#7f7571] hover:text-[#396662] transition-colors cursor-pointer"
                   >

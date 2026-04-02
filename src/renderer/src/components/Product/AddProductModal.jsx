@@ -61,7 +61,7 @@ const AddProductModal = ({ isOpen, onClose, onAdd }) => {
           />
 
           <input
-            type="text"
+            type="date"
             name="expDate"
             placeholder="Expiry Date (dd/mm/yyyy)"
             value={formData.expDate}
@@ -102,11 +102,15 @@ const AddProductModal = ({ isOpen, onClose, onAdd }) => {
           />
 
           <div className="flex justify-end gap-3 pt-2">
-            <button type="button" onClick={onClose} className="px-4 py-2 rounded bg-gray-200">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 rounded bg-gray-200 cursor-pointer"
+            >
               Cancel
             </button>
 
-            <button type="submit" className="px-4 py-2 rounded bg-black text-white">
+            <button type="submit" className="px-4 py-2 rounded bg-black text-white cursor-pointer">
               Add
             </button>
           </div>
