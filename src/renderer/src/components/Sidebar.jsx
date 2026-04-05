@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Home,
+  // Home,
   ShoppingCart,
   ReceiptText,
   Package,
@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router'
 
 const menuItems = [
-  { id: 1, label: 'Home', icon: Home, path: '/' },
+  // { id: 1, label: 'Home', icon: Home, path: '/' },
   { id: 2, label: 'Sales', icon: ShoppingCart, path: '/sales' },
   { id: 3, label: 'Orders', icon: ReceiptText, path: '/orders' },
   { id: 4, label: 'Products', icon: Package, path: '/products' },
