@@ -121,22 +121,3 @@ const AddProductModal = ({ isOpen, onClose, onAdd }) => {
 }
 
 export default AddProductModal
-
-// Usage Example
-
-// const [products, setProducts] = useState([])
-// const [open, setOpen] = useState(false)
-
-// function handleAdd(product) {
-//   setProducts(function (prev) {
-//     return [...prev, product]
-//   })
-// }
-
-// <button onClick={() => setOpen(true)}>Add Product</button>
-
-// <AddProductModal
-//   isOpen={open}
-//   onClose={() => setOpen(false)}
-//   onAdd={handleAdd}
-// />
