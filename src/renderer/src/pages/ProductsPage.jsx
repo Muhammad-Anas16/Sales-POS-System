@@ -58,7 +58,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     handleFetch()
-  }, [])
+  }, [handleAdd, handleDelete, handleSaveEdit]) // refetch on add/edit/delete
 
   return (
     <div className="px-3 py-6 bg-[#fbf9f5] text-[#1b1c1a] min-h-screen">

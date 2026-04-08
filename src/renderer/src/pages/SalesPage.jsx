@@ -9,15 +9,11 @@ const SalesPage = () => {
       {/* Top Section */}
       <SalesSearchBar />
       <CustomerInfoHeader />
-
-      {/* Bottom Section */}
       <div className="flex flex-1 gap-4 overflow-hidden">
-        {/* Left: Billing Table */}
         <div className="flex-1 min-w-0">
           <BillingTable />
         </div>
 
-        {/* Right: Sidebar */}
         <BillingSidebar />
       </div>
     </div>

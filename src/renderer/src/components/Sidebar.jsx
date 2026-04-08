@@ -6,7 +6,7 @@ import {
   Package,
   BarChart3,
   Settings,
-  Plus,
+  // Plus,
   PanelLeftClose,
   PanelLeftOpen
 } from 'lucide-react'
@@ -74,7 +74,7 @@ const Sidebar = () => {
       </nav>
 
       {/* Bottom Button */}
-      <div className="mt-auto p-4">
+      {/* <div className="mt-auto p-4">
         <button
           className={`w-full flex items-center justify-center gap-2 bg-[#3E6B65] text-white py-3 rounded-xl shadow-md
             ${collapsed ? 'px-0' : ''}`}
@@ -82,7 +82,7 @@ const Sidebar = () => {
           <Plus size={18} />
           {!collapsed && <span className="text-sm font-medium">New Order</span>}
         </button>
-      </div>
+      </div> */}
     </aside>
   )
 }
