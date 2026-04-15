@@ -1,8 +1,50 @@
+// // Get all Products
+// export const getProducts = async () => {
+//   try {
+//     const data = await window.api.getProducts()
+//     return data
+//   } catch (error) {
+//     console.log('Error while fetching products: ', error)
+//     return []
+//   }
+// }
+
+// // Add a Product
+// export const addProducts = async (product) => {
+//   try {
+//     const data = await window.api.addProduct(product)
+//     return data
+//   } catch (error) {
+//     console.log('Error while adding product: ', error)
+//   }
+// }
+
+// // Update Product
+// export const updateProduct = async (product) => {
+//   try {
+//     return await window.api.updateProduct(product)
+//   } catch (error) {
+//     console.error('Error updating product:', error)
+//   }
+// }
+
+// // Delete Product
+// export const deleteProduct = async (id) => {
+//   try {
+//     return await window.api.deleteProduct(id)
+//   } catch (error) {
+//     console.error('Error deleting product:', error)
+//   }
+// }
+
+// =========================
+// 🧾 PRODUCTS CRUD
+// =========================
+
 // Get all Products
 export const getProducts = async () => {
   try {
-    const data = await window.api.getProducts()
-    return data
+    return await window.api.getProducts()
   } catch (error) {
     console.log('Error while fetching products: ', error)
     return []
@@ -10,10 +52,9 @@ export const getProducts = async () => {
 }
 
 // Add a Product
-export const addProducts = async (product) => {
+export const addProduct = async (product) => {
   try {
-    const data = await window.api.addProduct(product)
-    return data
+    return await window.api.addProduct(product)
   } catch (error) {
     console.log('Error while adding product: ', error)
   }
@@ -34,5 +75,30 @@ export const deleteProduct = async (id) => {
     return await window.api.deleteProduct(id)
   } catch (error) {
     console.error('Error deleting product:', error)
+  }
+}
+
+// =========================
+// 🔍 SEARCH PRODUCTS
+// =========================
+
+export const searchProducts = async (query) => {
+  try {
+    return await window.api.searchProducts(query)
+  } catch (error) {
+    console.error('Error searching products:', error)
+    return []
+  }
+}
+
+// =========================
+// 🧾 BILLING / SALES
+// =========================
+
+export const createSale = async (saleData) => {
+  try {
+    return await window.api.createSale(saleData)
+  } catch (error) {
+    console.error('Error creating sale:', error)
   }
 }

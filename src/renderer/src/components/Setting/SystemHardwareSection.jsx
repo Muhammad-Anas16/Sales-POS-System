@@ -5,16 +5,16 @@ import {
   Wifi,
   Clock,
   Printer,
-  Palette,
-  Sun,
-  Moon
+  // Palette
+  // Sun,
+  // Moon
   // Check
 } from 'lucide-react'
 
 const SystemHardwareSection = () => {
   const [wifi, setWifi] = useState(true)
   const [timezone, setTimezone] = useState(true)
-  const [theme, setTheme] = useState('light')
+  // const [theme, setTheme] = useState('light')
   // const [accent, setAccent] = useState('#396662')
 
   return (
@@ -53,15 +53,14 @@ const SystemHardwareSection = () => {
       </div>
 
       {/* Appearance */}
-      <div className="bg-[#efeeea] rounded-xl p-8 custom-shadow">
-        <div className="flex items-center gap-3 mb-8">
+      {/* <div className="bg-[#efeeea] rounded-xl p-8 custom-shadow"> */}
+      {/* <div className="flex items-center gap-3 mb-8">
           <Palette className="text-[#396662]" size={20} />
           <h3 className="text-xl font-bold">Appearance</h3>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Display Mode */}
-          <div className="space-y-3">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> */}
+      {/* <div className="space-y-3">
             <label className="text-xs font-bold text-outline uppercase tracking-wider">
               Display Mode
             </label>
@@ -89,10 +88,10 @@ const SystemHardwareSection = () => {
                 Dark
               </button>
             </div>
-          </div>
+          </div> */}
 
-          {/* Accent Colors */}
-          {/* <div className="space-y-3">
+      {/* Accent Colors */}
+      {/* <div className="space-y-3">
             <label className="text-xs font-bold text-outline uppercase tracking-wider">
               Accent Flavor
             </label>
@@ -112,8 +111,8 @@ const SystemHardwareSection = () => {
               ))}
             </div>
           </div> */}
-        </div>
-      </div>
+      {/* </div> */}
+      {/* // </div> */}
     </section>
   )
 }

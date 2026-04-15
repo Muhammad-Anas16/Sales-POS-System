@@ -1,3 +1,208 @@
+// import { app, shell, BrowserWindow, ipcMain } from 'electron'
+// import { join } from 'path'
+// import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+// import icon from '../../resources/icon.png?asset'
+// import db from './SQLite'
+
+// function createWindow() {
+//   const mainWindow = new BrowserWindow({
+//     width: 900,
+//     height: 670,
+//     show: false,
+//     autoHideMenuBar: true,
+//     ...(process.platform === 'linux' ? { icon } : {}),
+//     webPreferences: {
+//       preload: join(__dirname, '../preload/index.js'),
+//       sandbox: false
+//     }
+//   })
+
+//   mainWindow.on('ready-to-show', () => {
+//     mainWindow.show()
+//   })
+
+//   mainWindow.webContents.setWindowOpenHandler((details) => {
+//     shell.openExternal(details.url)
+//     return { action: 'deny' }
+//   })
+
+//   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+//     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+//   } else {
+//     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+//   }
+// }
+
+// app.whenReady().then(() => {
+//   electronApp.setAppUserModelId('com.electron')
+
+//   app.on('browser-window-created', (_, window) => {
+//     optimizer.watchWindowShortcuts(window)
+//   })
+
+//   ipcMain.on('ping', () => console.log('pong'))
+
+//   // =========================
+//   // 🧾 PRODUCTS CRUD
+//   // =========================
+
+//   ipcMain.handle('get-products', () => {
+//     return db.prepare('SELECT * FROM products').all()
+//   })
+
+//   // ipcMain.handle('add-product', (_, product) => {
+//   //   return db
+//   //     .prepare(
+//   //       `INSERT INTO products (name, expDate, category, stock, price)
+//   //        VALUES (?, ?, ?, ?, ?)`
+//   //     )
+//   //     .run(product.name, product.expDate, product.category, product.stock, product.price)
+//   // })
+
+//   ipcMain.handle('add-product', (_, product) => {
+//     const price = product.boxPrice / product.itemsPerBox
+
+//     return db
+//       .prepare(
+//         `
+//     INSERT INTO products
+//     (name, expDate, category, stock, boxPrice, itemsPerBox, price)
+//     VALUES (?, ?, ?, ?, ?, ?, ?)
+//   `
+//       )
+//       .run(
+//         product.name,
+//         product.expDate,
+//         product.category,
+//         product.stock,
+//         product.boxPrice,
+//         product.itemsPerBox,
+//         price
+//       )
+//   })
+
+//   // ipcMain.handle('update-product', (_, product) => {
+//   //   return db
+//   //     .prepare(
+//   //       `UPDATE products
+//   //        SET name = ?, expDate = ?, category = ?, stock = ?, price = ?
+//   //        WHERE id = ?`
+//   //     )
+//   //     .run(
+//   //       product.name,
+//   //       product.expDate,
+//   //       product.category,
+//   //       product.stock,
+//   //       product.price,
+//   //       product.id
+//   //     )
+//   // })
+
+//   ipcMain.handle('update-product', (_, product) => {
+//     const price = product.boxPrice / product.itemsPerBox
+
+//     return db
+//       .prepare(
+//         `
+//     UPDATE products
+//     SET name = ?, expDate = ?, category = ?, stock = ?,
+//         boxPrice = ?, itemsPerBox = ?, price = ?
+//     WHERE id = ?
+//   `
+//       )
+//       .run(
+//         product.name,
+//         product.expDate,
+//         product.category,
+//         product.stock,
+//         product.boxPrice,
+//         product.itemsPerBox,
+//         price,
+//         product.id
+//       )
+//   })
+
+//   ipcMain.handle('delete-product', (_, id) => {
+//     return db.prepare(`DELETE FROM products WHERE id = ?`).run(id)
+//   })
+
+//   // =========================
+//   // 🔍 SEARCH PRODUCTS
+//   // =========================
+
+//   ipcMain.handle('search-products', (_, query) => {
+//     return db.prepare(`SELECT * FROM products WHERE name LIKE ?`).all(`%${query}%`)
+//   })
+
+//   // =========================
+//   // 🧾 CREATE SALE (BILLING SYSTEM)
+//   // =========================
+
+//   ipcMain.handle('create-sale', (_, { customerName, items }) => {
+//     const transaction = db.transaction(() => {
+//       let total = 0
+
+//       items.forEach((item) => {
+//         const product = db.prepare('SELECT * FROM products WHERE id = ?').get(item.productId)
+
+//         if (!product) {
+//           throw new Error('Product not found')
+//         }
+
+//         if (product.stock < item.quantity) {
+//           throw new Error(`Not enough stock for ${product.name}`)
+//         }
+
+//         total += product.price * item.quantity
+
+//         // 🔻 Reduce stock
+//         db.prepare(`UPDATE products SET stock = stock - ? WHERE id = ?`).run(
+//           item.quantity,
+//           item.productId
+//         )
+//       })
+
+//       // 🧾 Insert sale
+//       const saleResult = db
+//         .prepare(
+//           `INSERT INTO sales (customerName, total, date)
+//            VALUES (?, ?, datetime('now'))`
+//         )
+//         .run(customerName, total)
+
+//       const saleId = saleResult.lastInsertRowid
+
+//       // 📦 Insert sale items
+//       items.forEach((item) => {
+//         const product = db.prepare('SELECT * FROM products WHERE id = ?').get(item.productId)
+
+//         db.prepare(
+//           `INSERT INTO sale_items (saleId, productId, quantity, price)
+//            VALUES (?, ?, ?, ?)`
+//         ).run(saleId, item.productId, item.quantity, product.price)
+//       })
+
+//       return { saleId, total }
+//     })
+
+//     return transaction()
+//   })
+
+//   // =========================
+
+//   createWindow()
+
+//   app.on('activate', function () {
+//     if (BrowserWindow.getAllWindows().length === 0) createWindow()
+//   })
+// })
+
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') {
+//     app.quit()
+//   }
+// })
+
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
@@ -5,7 +210,6 @@ import icon from '../../resources/icon.png?asset'
 import db from './SQLite'
 
 function createWindow() {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
@@ -27,8 +231,6 @@ function createWindow() {
     return { action: 'deny' }
   })
 
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
@@ -36,87 +238,178 @@ function createWindow() {
   }
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
-  // Default open or close DevTools by F12 in development
-  // and ignore CommandOrControl + R in production.
-  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
-  // Delete products using SQLite DataBase
+  // =========================
+  // 🧾 PRODUCTS CRUD
+  // =========================
 
-  ipcMain.handle('delete-product', (_, id) => {
-    return db
-      .prepare(
-        `
-    DELETE FROM products WHERE id = ?
-  `
-      )
-      .run(id)
+  ipcMain.handle('get-products', () => {
+    return db.prepare('SELECT * FROM products').all()
   })
 
-  // Update products using SQLite DataBase
+  ipcMain.handle('add-product', (_, product) => {
+    const price = product.boxPrice / product.itemsPerBox
 
-  ipcMain.handle('update-product', (_, product) => {
     return db
       .prepare(
         `
-    UPDATE products
-    SET name = ?, expDate = ?, category = ?, stock = ?, price = ?
-    WHERE id = ?
-  `
+        INSERT INTO products 
+        (name, expDate, category, stock, boxPrice, itemsPerBox, price)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `
       )
       .run(
         product.name,
         product.expDate,
         product.category,
         product.stock,
-        product.price,
+        product.boxPrice,
+        product.itemsPerBox,
+        price
+      )
+  })
+
+  ipcMain.handle('update-product', (_, product) => {
+    const price = product.boxPrice / product.itemsPerBox
+
+    return db
+      .prepare(
+        `
+        UPDATE products
+        SET name = ?, expDate = ?, category = ?, stock = ?, 
+            boxPrice = ?, itemsPerBox = ?, price = ?
+        WHERE id = ?
+      `
+      )
+      .run(
+        product.name,
+        product.expDate,
+        product.category,
+        product.stock,
+        product.boxPrice,
+        product.itemsPerBox,
+        price,
         product.id
       )
   })
 
-  // 📦 Get all products using SQLite DataBase
-  ipcMain.handle('get-products', () => {
-    return db.prepare('SELECT * FROM products').all()
+  ipcMain.handle('delete-product', (_, id) => {
+    return db.prepare(`DELETE FROM products WHERE id = ?`).run(id)
   })
 
-  // ➕ Add  products using SQLite DataBase
-  ipcMain.handle('add-product', (_, product) => {
+  // =========================
+  // 🔍 SEARCH PRODUCTS
+  // =========================
+
+  ipcMain.handle('search-products', (_, query) => {
+    return db.prepare(`SELECT * FROM products WHERE name LIKE ?`).all(`%${query}%`)
+  })
+
+  // =========================
+  // 🧾 CREATE SALE (ADVANCED POS)
+  // =========================
+
+  ipcMain.handle('create-sale', (_, { customerName, items }) => {
+    const transaction = db.transaction(() => {
+      let total = 0
+
+      items.forEach((item) => {
+        const product = db.prepare('SELECT * FROM products WHERE id = ?').get(item.productId)
+
+        if (!product) {
+          throw new Error('Product not found')
+        }
+
+        const itemsPerBox = product.itemsPerBox || 1
+
+        // 🔥 Convert everything to ITEMS
+        const soldItems = item.type === 'box' ? item.quantity * itemsPerBox : item.quantity
+
+        const totalItems = product.stock * itemsPerBox
+
+        if (soldItems > totalItems) {
+          throw new Error(`Not enough stock for ${product.name}`)
+        }
+
+        // 💰 Calculate using per item price
+        total += product.price * soldItems
+
+        // 🔻 Remaining items
+        const remainingItems = totalItems - soldItems
+
+        // 🔁 Convert back to boxes
+        const newBoxes = Math.floor(remainingItems / itemsPerBox)
+
+        db.prepare(`UPDATE products SET stock = ? WHERE id = ?`).run(newBoxes, item.productId)
+      })
+
+      // 🧾 Insert sale
+      const saleResult = db
+        .prepare(
+          `
+          INSERT INTO sales (customerName, total, date)
+          VALUES (?, ?, datetime('now'))
+        `
+        )
+        .run(customerName, total)
+
+      const saleId = saleResult.lastInsertRowid
+
+      // 📦 Insert sale items
+      items.forEach((item) => {
+        db.prepare(
+          `
+          INSERT INTO sale_items (saleId, productId, quantity, price)
+          VALUES (?, ?, ?, ?)
+        `
+        ).run(saleId, item.productId, item.quantity, item.price)
+      })
+
+      return { saleId, total }
+    })
+
+    return transaction()
+  })
+
+  // =========================
+  // 🧾 Sales Report
+  // =========================
+
+  ipcMain.handle('get-sales-report', () => {
     return db
       .prepare(
-        `INSERT INTO products (name, expDate, category, stock, price) VALUES (?, ?, ?, ?, ?)`
+        `
+    SELECT 
+      date,
+      SUM(total) as total
+    FROM sales
+    GROUP BY date
+    ORDER BY date DESC
+    LIMIT 7
+  `
       )
-      .run(product.name, product.expDate, product.category, product.stock, product.price)
+      .all()
   })
+
+  // =========================
 
   createWindow()
 
   app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

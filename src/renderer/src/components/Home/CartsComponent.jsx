@@ -1,24 +1,29 @@
 import { useState } from 'react'
 import Cart from '../ui/Cart'
 import SalesCard from '../ui/SalesCard'
-import { ReceiptText, Package, BarChart3, Settings } from 'lucide-react'
+import {
+  // ReceiptText,
+  Package,
+  BarChart3,
+  Settings
+} from 'lucide-react'
 
 const CartsComponent = () => {
   const [salesData] = useState([
-    {
-      id: 1,
-      icon: ReceiptText,
-      iconColor: '#325f5b',
-      iconBackground: '#A8D7D2',
-      Background: '#FEFBF9',
-      title: 'Orders',
-      subTitleColor: '#4e4541',
-      subTitle: 'Manage queue',
-      bottomColor: '#396662',
-      bottomDotColor: '#A8D7D2',
-      bottomTitle: '12 ACTIVE',
-      URL: '/orders'
-    },
+    // {
+    //   id: 1,
+    //   icon: ReceiptText,
+    //   iconColor: '#325f5b',
+    //   iconBackground: '#A8D7D2',
+    //   Background: '#FEFBF9',
+    //   title: 'Orders',
+    //   subTitleColor: '#4e4541',
+    //   subTitle: 'Manage queue',
+    //   bottomColor: '#396662',
+    //   bottomDotColor: '#A8D7D2',
+    //   bottomTitle: '12 ACTIVE',
+    //   URL: '/orders'
+    // },
     {
       id: 2,
       icon: Package,
