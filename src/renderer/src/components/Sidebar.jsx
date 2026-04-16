@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {
   // Home,
   ShoppingCart,
-  // ReceiptText,
+  ReceiptText,
   Package,
   BarChart3,
   Settings,
@@ -14,7 +14,7 @@ import { Link } from 'react-router'
 
 const menuItems = [
   // { id: 1, label: 'Home', icon: Home, path: '/' },
-  // { id: 3, label: 'Orders', icon: ReceiptText, path: '/orders' },
+  { id: 3, label: 'Orders', icon: ReceiptText, path: '/orders' },
   { id: 2, label: 'Sales', icon: ShoppingCart, path: '/sales' },
   { id: 4, label: 'Products', icon: Package, path: '/products' },
   { id: 5, label: 'Reports', icon: BarChart3, path: '/report' },

@@ -1,17 +1,35 @@
-// const Summery_Calculation = () => {
+// const Summery_Calculation = ({
+//   subtotal,
+//   itemDiscount,
+//   totalDiscount,
+//   setTotalDiscount,
+//   total
+// }) => {
 //   return (
-//     <div className="space-y-1">
-//       <div className="flex justify-between text-xs">
-//         <span>SUBTOTAL:</span>
-//         <span>65.25</span>
+
+//     <div className="space-y-3 text-sm">
+//       <div className="flex justify-between">
+//         <span>Subtotal</span>
+//         <span>{subtotal}</span>
 //       </div>
-//       <div className="flex justify-between text-xs">
-//         <span>DISCOUNT_TOTAL:</span>
-//         <span>(2.00)</span>
+
+//       <div className="flex justify-between">
+//         <span>Item Discount</span>
+//         <span>{itemDiscount}</span>
 //       </div>
-//       <div className="border-t border-dashed border-gray-600 pt-2 mt-4 flex justify-between items-baseline">
-//         <span className="text-xs font-black">TOTAL_DUE:</span>
-//         <span className="text-2xl font-black tracking-tighter">68.31</span>
+
+//       <div>
+//         <input
+//           placeholder="Extra Discount"
+//           value={totalDiscount}
+//           onChange={(e) => setTotalDiscount(e.target.value)}
+//           className="w-full border rounded-lg px-3 py-2"
+//         />
+//       </div>
+
+//       <div className="flex justify-between text-lg font-bold pt-2 border-t">
+//         <span>Total</span>
+//         <span>{total}</span>
 //       </div>
 //     </div>
 //   )
@@ -26,18 +44,47 @@ const Summery_Calculation = ({
   setTotalDiscount,
   total
 }) => {
+  // 🔥 Convert % → actual amount
+  const percent = Number(totalDiscount) || 0
+  const percentAmount = (subtotal * percent) / 100
+
+  // 🔥 Final total with %
+  const finalTotal = subtotal - itemDiscount - percentAmount
+
   return (
-    <div>
-      <p>Subtotal: {subtotal}</p>
-      <p>Item Discount: {itemDiscount}</p>
+    <div className="space-y-3 text-sm">
+      <div className="flex justify-between">
+        <span>Subtotal</span>
+        <span>{subtotal}</span>
+      </div>
 
-      <input
-        placeholder="Total Discount"
-        value={totalDiscount}
-        onChange={(e) => setTotalDiscount(e.target.value)}
-      />
+      <div className="flex justify-between">
+        <span>Item Discount</span>
+        <span>{itemDiscount}</span>
+      </div>
 
-      <h2>Total: {total}</h2>
+      {/* INPUT = % */}
+      <div>
+        <input
+          type="number"
+          placeholder="Discount %"
+          value={totalDiscount}
+          onChange={(e) => setTotalDiscount(e.target.value)}
+          className="w-full border rounded-lg px-3 py-2"
+        />
+      </div>
+
+      {/* SHOW CALCULATED DISCOUNT */}
+      <div className="flex justify-between text-gray-500">
+        <span>Extra Discount ({percent}%)</span>
+        <span>- {percentAmount.toFixed(2)}</span>
+      </div>
+
+      {/* FINAL TOTAL */}
+      <div className="flex justify-between text-lg font-bold pt-2 border-t">
+        <span>Total</span>
+        <span>{finalTotal.toFixed(2)}</span>
+      </div>
     </div>
   )
 }

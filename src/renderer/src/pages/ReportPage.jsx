@@ -37,6 +37,8 @@ const ReportPage = () => {
     fetchData()
   }, [])
 
+  console.log('Report Data:', reportData)
+
   return (
     <div className="px-3 py-6 bg-[#FBF9F5] text-[#1b1c1a] min-h-screen">
       <ReportPageHeader />
